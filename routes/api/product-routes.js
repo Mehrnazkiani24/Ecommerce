@@ -79,20 +79,22 @@ router.post('/', async(req, res) => {
 
 // update product
 router.put('/:id', async(req, res) => {
+  console.log("Product update",req.params.is)
   // update product data
   Product.update(req.body, {
     where: {
       id: req.params.id,
-    },
+    }
   })
-    .then((product) => {
+    .then((product) => {m
+      console.log(product,"PRODUCT UPDATE")
       if (req.body.tagIds && req.body.tagIds.length) {
 
         ProductTag.findAll({
           where: { product_id: req.params.id }
         }).then((productTags) => {
           // create filtered list of new tag_ids
-          const productTagIds = productTags.map(({ tag_id }) => tag_id);
+          const productTagIds = productTags.ap(({ tag_id }) => tag_id);
           const newProductTags = req.body.tagIds
             .filter((tag_id) => !productTagIds.includes(tag_id))
             .map((tag_id) => {
